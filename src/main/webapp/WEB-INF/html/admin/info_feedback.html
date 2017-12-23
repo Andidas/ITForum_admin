@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>用户列表</title>
+		<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="lwy">
+
+		
+	</head>
+
+	<body class="">
+
+		<div class="content">
+
+			<div class="header">
+
+				<h1 class="page-title">反馈消息</h1>
+			</div>
+
+			<ul class="breadcrumb">
+				<li><a href="main.htm">主页</a></li>
+				<li class="active">反馈消息</li>
+			</ul>
+<div class="container-fluid">
+			 <div class="alert alert-info">
+		        <button type="button" class="close" data-dismiss="alert">×</button>
+		        <strong>状态：</strong>1.未读, 2.已读  
+		    </div>
+			</div>
+			<div class="container-fluid">
+				<div class="row-fluid">
+
+					<div id="feedback_toolbar">
+						<button class="btn btn-primary"  role="button"
+						data-toggle="modal" id="newInfo_btn">
+						<i class="icon-plus"></i> 新建通知
+						</button>
+						<button class="btn" id="clearAll_btn">标记为已读</button>
+						<div class="btn-group">
+						</div>
+					</div>
+					<div class="well">
+						<table id="myFeedbacktable">
+							<!-- content -->
+						</table>
+					</div>
+	<div class="modal fade" id="newInfo" tabindex="-1" role="dialog"
+					aria-hidden="true">
+					<!-- /.modal-dialog -->
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<!--class="close"关闭的css特效 data-dismiss="modal"关闭功能  aria-hidden="true"关闭后隐藏-->
+								<button type="button" class="close" data-dismiss="modal"
+									aria-hidden="true">×</button>
+								<h4 class="modal-title" >新建通知</h4>
+							</div>
+							<div class="modal-body">
+								<!-- 模态窗口内容 -->
+								<form id="newinfo_form" class="form-horizontal">
+									<div class="form-group" style="margin-top: 15px">
+										<input type="hidden" id="message_type" name="message_type" value="2">
+										<input type="hidden" id="puid" name="puid" value="37">
+										<input type="hidden" id="pid" name="pid" >
+										<label class="control-label col-sm-2" for="ptouid">接收者</label>
+										<div class="col-sm-7 col-sm-offset-1">
+											<input type="text" class="form-control" id="ptouid"
+												name="ptouid">
+										</div>
+									</div>
+									<div class="form-group" style="margin-top: 15px">
+										<label class="control-label col-sm-2" for="contnet">内容</label>
+										<div class="col-sm-7 col-sm-offset-1">
+											<textarea rows="7" cols="50" name="pcontent" style="resize: none;"></textarea>
+										</div>
+									</div>
+									
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default"
+									data-dismiss="modal">关闭</button>
+								<button type="button" class="btn btn-primary" id="newinfo_submit">提交</button>
+							</div>
+						</div>
+						<!-- /.modal-content -->
+					</div>
+					<!-- /.modal-dialog -->
+				</div>
+				</div>
+			</div>
+		</div>
+	</body>
+<script type="text/javascript">
+	$(function() {
+		//初始化table
+		var tbObj = new TableFeedbackInit();
+		tbObj.Init();
+
+		//点击新建通知
+		$("#newInfo_btn").click(function(data){
+			var selection = $("#myFeedbacktable").bootstrapTable("getSelections");
+			if(selection==null||selection==""){
+				toastr.warning("请勾选您要回复的私信");
+				return;
+			}else if(selection.length>1){
+				toastr.warning("一次只能回复一条私信");
+				return;
+			}
+			console.log(selection[0]);
+			$("#ptouid").val(selection[0].puid);
+			$("#pid").val(selection[0].pid);
+			$("#newInfo").modal("show");
+		});
+		
+		$("#newinfo_submit").click(function(){
+			//核心：获取表单数据，并组装成json
+			var param = $("#newinfo_form").serializeJson();
+			console.log(param);
+			$.ajax({
+				type:'post',
+				url:'../content/sendSystemLetter.htm',
+				data:JSON.stringify(param),
+				dataType:'json',
+				contentType:'application/json',
+				success:function(data){
+					if(data){
+						$("#newInfo").modal("hide");
+						toastr.success("发送成功");
+						 $("#myFeedbacktable").bootstrapTable("refresh");
+					}else{
+						toastr.error("发送失败");
+					}
+				},
+				error:function(req,status,ex){toastr.error("服务器错误");},
+				timeout:60000
+			});
+		});
+		
+		
+		$('#clearAll_btn').click(function(){
+			var selection = $("#myFeedbacktable").bootstrapTable("getSelections");
+			if(selection==null||selection==""){
+				toastr.warning("请勾选您要标记的反馈");
+				return;
+			}else {
+				var pids = new Array();
+				$.each(selection,function(i,feedback){
+					pids.push(feedback.pid);
+				});
+				console.log(pids);
+				markReaded(pids);
+			}
+		});
+		//标记为已读
+		function markReaded(pids){
+			$.ajax({
+				type:'post',
+				url:'../content/Feedback_markReaded.htm',
+				data:JSON.stringify(pids),
+				dataType:'json',
+				contentType:'application/json',
+				success:function(data){
+					if(data){
+						toastr.success("标记成功");
+						$("#myFeedbacktable").bootstrapTable("refresh");
+					}else{
+						toastr.error("标记失败");
+					}
+				},
+				error:function(req,status,ex){toastr.error("服务器错误");},
+				timeout:60000
+			});
+		}
+		
+		 $.query("../content/getFeedbackPageTest.htm",function(data){
+			var feeds= data.datas.list;
+			$.each(feeds,function(i,feed){
+				console.log(feed);				
+			});
+		}); 
+	});
+	
+</script>
+</html>

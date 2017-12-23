@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>管理界面</title>
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="lwy">
+
+<script type="text/javascript" src="../js/loader.js"></script>
+
+<script src="../js/adminNav.js"></script>
+<style type="text/css">
+	#mainBody a{ 
+		text-decoration: none;
+	}
+</style>
+<script type="text/javascript">
+	$(function(){
+		//初始化提示框
+		toastr.options.positionClass = "toast-center";
+		
+		$.ajax({
+			type:'post',
+			url:'getAdminParam.htm',
+			dataType:'json',
+			contentType: "application/json",
+			success:function(data){
+				$('#admin_eamil').html(data.email);
+			},
+			error:function(req, status, ex) {
+				toastr.error("获取管理员的数据异常！请刷新页面");
+			},
+			timeout:60000
+		});
+	});
+</script>
+</head>
+
+<body id="mainBody">
+
+	<div class="navbar" style="    height: 41px;">
+		<div class="navbar-inner" style="height: 100%;">
+			<ul class="nav pull-right">
+
+				
+				<li id="fat-menu" class="dropdown">
+					<a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+						 <i class="icon-user"></i><i id="admin_eamil"></i> <i class="icon-caret-down"></i>
+					</a>
+
+					<ul class="dropdown-menu">
+						<li class="divider visible-phone"></li>
+						<li><a tabindex="-1" href="logout.htm">注销</a></li>
+					</ul></li>
+
+			</ul>
+			<a class="brand" href="index.htm" style="font-size: 20px;line-height: 41px;"><span class="first">IT</span>
+				<span class="second">Forum</span></a>
+		</div>
+	</div>
+
+	<div class="sidebar-nav">
+		<form class="search form-inline">
+			<input type="text" placeholder="Search...">
+		</form>
+		<a href="javaScript:;" data="main.htm"  class="nav-header contentJump">
+			<i class="icon-home"></i>主页
+		</a>
+		<a href="javaScript:;" data="user_list.htm"  class="nav-header contentJump">
+			<i class="icon-user"></i>用户信息<span class="label label-info">+3</span>
+		</a>
+		
+		<a href="#accounts-menu" class="nav-header collapsed" data-toggle="collapse">
+			<i class="icon-briefcase"></i>管理员<i class="icon-chevron-up"></i>
+		</a>
+		<ul id="accounts-menu" class="nav nav-list collapse">
+			<li><a href="logout.htm" >登录</a></li>
+			<li><a href="admin_signUp.htm" >注册</a></li>
+			<li><a href="admin_resetPassword.htm" >修改密码</a></li>
+		</ul>
+	
+		
+
+		<a href="#notice-menu" class="nav-header collapsed"	data-toggle="collapse">
+			<i class="icon-comment"></i>消息管理<i class="icon-chevron-up"></i>
+		</a>
+		<ul id="notice-menu" class="nav nav-list collapse">
+			<li><a href="javaScript:;" data="info_system.htm"  class="contentJump">系统通知</a></li>
+			<li><a href="javaScript:;" data="info_feedback.htm"  class="contentJump">反馈消息</a></li>
+		</ul>
+
+		<a href="javaScript:;" data="recommend_object.htm"  class="nav-header contentJump">
+			<i class="icon-random"></i>推荐管理
+		</a> 
+		<a href="#error-menu" class="nav-header collapsed" data-toggle="collapse">
+			<i class="icon-exclamation-sign"></i>Error Pages <i class="icon-chevron-up"></i>
+		</a>
+		<ul id="error-menu" class="nav nav-list collapse">
+			<li><a href="javaScript:;" data="403.htm" class="contentJump">403 page</a></li>
+			<li><a href="javaScript:;" data="404.htm" class="contentJump">404 page</a></li>
+			<li><a href="javaScript:;" data="500.htm" class="contentJump">500 page</a></li>
+			<li><a href="javaScript:;" data="503.htm" class="contentJump">503 page</a></li>
+		</ul>
+
+		<a href="#legal-menu" class="nav-header collapsed" data-toggle="collapse">
+			<i class="icon-legal"></i>法律条款<i class="icon-chevron-up"></i>
+		</a>
+		<ul id="legal-menu" class="nav nav-list collapse">
+			<li><a href="javaScript:;" data="privacy_policy.htm"  class="contentJump">隐私策略</a></li>
+			<li><a href="javaScript:;" data="terms_and_conditions.htm"  class="contentJump">条款和合约</a></li>
+		</ul>
+
+		<a href="javaScript:;" data="help.htm" class="nav-header contentJump" >
+			<i class="icon-question-sign"></i>帮助</a> 
+		<footer>
+			<p class="pull-right">
+				Create By <a href="javaScript:;" title="java开发工程师：第一小梯队" rel="tooltip" target="_blank">Team </a>
+			</p>
+			<p>
+				&copy; 2017 <a href="javaScript:;" target="_blank">Andi</a>
+			</p>
+		</footer>
+	</div>
+	<div id="admin_content">
+		<!-- main content. never can be delete! -->
+	</div>
+	<!-- 	<iframe id="myiframe" name="myiframe" src="" scrolling="no" frameborder="0" style="width:200px; height:150px; "></iframe> -->
+</body>
+<script type="text/javascript">
+        $("[rel=tooltip]").tooltip();
+    </script>
+    
+    <script type="text/javascript" src="/ITForum_Admin/js/adminUser.js"></script>
+    <script type="text/javascript" src="/ITForum_Admin/js/adminSysInfo.js"></script>
+       <script type="text/javascript" src="/ITForum_Admin/js/adminFeedback.js"></script>
+</html>

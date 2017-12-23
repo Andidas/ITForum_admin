@@ -1,0 +1,23 @@
+/*主页面的添加*/
+$(function(){
+	/*初始化*/
+	$.ajax({
+		type:"post",
+		url:"main.htm",
+		success:function(data){
+			$('#admin_content').html("");
+			$('#admin_content').html(data);
+		}		
+	});
+	
+	$('.contentJump').click(function(){
+		$.ajax({
+			type:"post",
+			url:$(this).attr('data'),
+			success:function(data){
+				$('#admin_content').html("");
+				$('#admin_content').html(data);
+			}
+		});
+	});
+});

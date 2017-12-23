@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="此代码内容为超萌的猫头鹰登录界面" />
+<meta name="author" content="刘伟艺">
+<title>管理员登录界面</title>
+<link rel="stylesheet" href="css/jq22.css">
+<script src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/restful.js"></script>
+<script type="text/javascript" src="js/tip.js"></script>
+<script type="text/javascript" src="js/toastr.js"></script>
+<link rel="stylesheet" href="css/toastr.css" type="text/css"></link>
+
+
+<script type="text/javascript">
+	$(function(){
+		/*初始化提示框*/
+		toastr.options.positionClass = "toast-center";
+		//登录按钮移除disabled属性
+		function removeDisabled(){
+			$('#adminLogin').removeAttr("disabled");
+			$('#adminLogin').html("登录");
+		}
+		//登录按钮设置disabled属性
+		function doDisabled(){
+			$('#adminLogin').attr("disabled","disabled");
+			$('#adminLogin').html("loading");
+		}
+		//登录函数
+		function login(){
+			doDisabled();			
+			var email = $('#email').val();
+			var password = $('#password').val();
+			$.ajax({
+				type:"post",
+				url:'AdminMaintain/'+email+'/'+password+'/login.htm',
+				contentType: 'application/json',
+				success:function(data){
+					if(data=="false"){
+						toastr.error("登录失败");
+						removeDisabled();
+					}else{
+						toastr.success("登录成功");
+						location.href="admin/index.htm";	
+					}
+				},
+				error: function(req, status, ex) {toastr.error("操作异常！");removeDisabled();},
+				timeout:60000
+			});
+		}
+		/*登录按钮点击事件*/
+		$('#adminLogin').on('click',login);
+		/*键盘监听事件*/
+		$(document).on('keydown',function(event){
+			if(event.keyCode==13){
+				login();
+			}
+		});
+	});
+</script>
+
+</head>
+<body>
+	<!-- begin -->
+	<div id="login">
+		<div class="wrapper">
+			<div class="login">
+				<form action="#" method="post"
+					class="container offset1 loginform">
+					<div id="owl-login">
+						<div class="hand"></div>
+						<div class="hand hand-r"></div>
+						<div class="arms">
+							<div class="arm"></div>
+							<div class="arm arm-r"></div>
+						</div>
+					</div>
+					<div class="pad">
+						<input type="hidden" name="_csrf"
+							value="9IAtUxV2CatyxHiK2LxzOsT6wtBE6h8BpzOmk=">
+						<div class="control-group">
+							<div class="controls">
+								<label for="email" class="control-label fa fa-user"></label> <input
+									id="email" type="text" name="email" placeholder="email"
+									tabindex="1" autofocus="autofocus"
+									class="form-control input-medium">
+							</div>
+						</div>
+						<div class="control-group">
+							<div class="controls">
+								<label for="password" class="control-label fa fa-asterisk"></label>
+								<input id="password" type="password" name="password"
+									placeholder="Password" tabindex="2"
+									class="form-control input-medium">
+							</div>
+						</div>
+					</div>
+					<div class="form-actions">
+
+						<a tabindex="4" class="btn btn-primary" id="adminLogin">登录</a>
+					</div>
+				</form>
+			</div>
+		</div>
+		
+		<script>
+    $(function() {
+
+        $('#login #password').focus(function() {
+            $('#owl-login').addClass('password');
+        }).blur(function() {
+            $('#owl-login').removeClass('password');
+        });
+    });
+    </script>
+	</div>
+
+
+</body>
+</html>
