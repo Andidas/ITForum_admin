@@ -33,8 +33,11 @@ public class AdminServiceImpl implements AdminService {
 	}
 	@Override
 	public boolean UpdateAdminPassword(Admin admin) {
-		// TODO 自动生成的方法存根
-		return false;
+		return adminDao.UpdateAdminPassword(admin)>0;
+	}
+	@Override
+	public boolean addAdmin(Admin admin) {
+		return adminDao.addAdmin(admin)>0;
 	}
 	
 }

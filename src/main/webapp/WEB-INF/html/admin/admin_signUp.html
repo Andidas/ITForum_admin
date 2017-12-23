@@ -107,7 +107,7 @@
 	function registerAJAX(email,password){
 		$.ajax({
 			type:'post',
-			url:"../AdminMaintain/registerAdmin.htm?",
+			url:"../AdminMaintain/registerAdmin.htm",
 			data:{email:email,password:password},
 			dataType:"json",
 			success:function(data){

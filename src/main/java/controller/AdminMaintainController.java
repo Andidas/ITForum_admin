@@ -15,6 +15,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import service.AdminService;
 import utils.SendEmail;
+import dao.AdminDao;
+import entity.Admin;
 
 /**
  * @author 刘伟艺
@@ -41,9 +43,8 @@ public class AdminMaintainController {
 	@RequestMapping("/registerAdmin")
 	@ResponseBody
 	public boolean registerAdmin(String email,String password){
-		//Admin admin = new Admin(email,password);
-		//return AdminDao.addAdmin(admin);
-		return true;
+		Admin admin = new Admin(email,password);
+		return adminService.addAdmin(admin);
 	}
 	
 	/**

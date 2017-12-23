@@ -14,7 +14,7 @@
 <style type="text/css">
 	#mainBody a{ 
 		text-decoration: none;
-	}
+	}	
 </style>
 <script type="text/javascript">
 	$(function(){
@@ -81,8 +81,6 @@
 			<li><a href="admin_resetPassword.htm" >修改密码</a></li>
 		</ul>
 	
-		
-
 		<a href="#notice-menu" class="nav-header collapsed"	data-toggle="collapse">
 			<i class="icon-comment"></i>消息管理<i class="icon-chevron-up"></i>
 		</a>
@@ -91,9 +89,14 @@
 			<li><a href="javaScript:;" data="info_feedback.htm"  class="contentJump">反馈消息</a></li>
 		</ul>
 
-		<a href="javaScript:;" data="recommend_object.htm"  class="nav-header contentJump">
-			<i class="icon-random"></i>推荐管理
-		</a> 
+		<a href="#session-menu" class="nav-header collapsed"	data-toggle="collapse">
+			<i class="icon-tags"></i>板块帖子<i class="icon-chevron-up"></i>
+		</a>
+		<ul id="session-menu" class="nav nav-list collapse">
+			<li><a href="javaScript:;" data="session.htm"  class="contentJump">板块列表</a></li>
+			<li><a href="javaScript:;" data="topic.htm"  class="contentJump">帖子列表</a></li>
+		</ul>
+		
 		<a href="#error-menu" class="nav-header collapsed" data-toggle="collapse">
 			<i class="icon-exclamation-sign"></i>Error Pages <i class="icon-chevron-up"></i>
 		</a>

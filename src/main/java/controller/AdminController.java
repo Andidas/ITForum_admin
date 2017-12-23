@@ -108,9 +108,9 @@ public class AdminController {
 		return "admin/privacy_policy";
 	}
 
-	@RequestMapping("/recommend_object")
+	@RequestMapping("/topic")
 	public String adminRecomendObject() {
-		return "admin/recommend_object";
+		return "admin/topic";
 	}
 
 	@RequestMapping("/terms_and_conditions")
@@ -118,9 +118,9 @@ public class AdminController {
 		return "admin/terms_and_conditions";
 	}
 
-	@RequestMapping("/user_edit")
+	@RequestMapping("/session")
 	public String adminUserEdit() {
-		return "admin/user_edit";
+		return "admin/session";
 	}
 
 	/**
