@@ -59,7 +59,6 @@ public class AdminContentController {
 	public @ResponseBody JsonResult<User> getUserPage(int pageSize,int pageNum,
 			String sort,String order,String uname){
 		PageHelper.startPage(pageNum,pageSize,sort+" "+order);
-		System.out.println(uname);
 		List<User> users = null;
 		if(uname!=null&&!uname.equals("")){
 			users=userService.queryUserByFuzzyName("%"+uname+"%");
@@ -77,7 +76,6 @@ public class AdminContentController {
 	 */
 	@RequestMapping(value="/updateUserState",method=RequestMethod.POST)
 	public @ResponseBody boolean updateUserState(@RequestBody User user){
-		System.out.println(user);
 		return userService.updateUserState(user)>0;
 	}
 	

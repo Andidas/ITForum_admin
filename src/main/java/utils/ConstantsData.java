@@ -6,6 +6,11 @@ package utils;
  *
  */
 public class ConstantsData {
+	
+	private final static int QUERY_BY_NULL = 0;
+	private final static int QUERY_BY_SESSION_NAME = 1;
+	private final static int QUERY_BY_SESSION_TYPE = 2;
+	private final static int QUERY_BY_SESSION_MASTER = 3;
 	/**
 	 * 每一页显示5条数据
 	 */

@@ -29,9 +29,8 @@ public class SessionServiceImpl implements SessionService {
 	}
 
 	@Override
-	public boolean deleteSession(String sid) {
-		// TODO 自动生成的方法存根
-		return false;
+	public boolean deleteSession(List<Integer> sid) {
+		return sessionDao.deleteSession(sid)>0;
 	}
 
 	@Override
@@ -71,6 +70,19 @@ public class SessionServiceImpl implements SessionService {
 	@Override
 	public List<Session> queryAllSession() {
 		return sessionDao.queryAllSession();
+	}
+	@Override
+	public List<Session> querySessionByName(String sname) {
+		return sessionDao.querySessionByName("%"+sname+"%");
+	}
+	@Override
+	public List<Session> querySessionByProfile(String sprofile) {
+		return sessionDao.querySessionByProfile("%"+sprofile+"%");
+	}
+	@Override
+	public List<Session> querySessionByMasterid(String smasterid) {
+		int master = Integer.parseInt(smasterid);
+		return sessionDao.querySessionByMasterid(master);
 	}
 	
 

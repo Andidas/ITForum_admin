@@ -15,7 +15,7 @@ public interface SessionService {
 	 * @param sid 
 	 * @return
 	 */
-	boolean deleteSession(String sid);
+	boolean deleteSession(List<Integer> sid);
 	/**
 	 * 查询属于同一类的session
 	 * @param sprofile
@@ -58,6 +58,25 @@ public interface SessionService {
 	 * @return
 	 */
 	List<Session> queryAllSession();
+	/**
+	 * 查询所有session,模糊查询，条件sname
+	 * @param sname
+	 * @return
+	 */
+	List<Session> querySessionByName(String sname);
+	/**
+	 * 查询所有session,模糊查询，条件sprofile
+	 * @param sname
+	 * @return
+	 */
+	List<Session> querySessionByProfile(String sprofile);
+	/**
+	 * 查询所有session,精确查询，条件smasterid
+	 * @param sname
+	 * @return
+	 */
+	List<Session> querySessionByMasterid(String smasterid);
+	
 	
 }		
  

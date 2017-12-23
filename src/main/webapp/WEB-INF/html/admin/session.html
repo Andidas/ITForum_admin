@@ -9,85 +9,50 @@
 <meta name="description" content="">
 <meta name="author" content="lwy">
 
+
+
 </head>
 
 <body class="">
 	<div class="content">
 		<div class="header">
-			<h1 class="page-title">用户列表</h1>
+			<h1 class="page-title">板块列表</h1>
 		</div>
 
 		<ul class="breadcrumb">
-			<li><a href="main.htm">主页</a></li>
-			<li class="active">用户列表</li>
+			<li><a href="index.htm">主页</a></li>
+			<li class="active">板块列表</li>
 		</ul>
 
 
 		<div class="container-fluid">
 			<div class="row-fluid">
-				
+
 				<!-- 权限修改 -->
 				<div class="btn-toolbar">
-					<button class="btn btn-primary" id="updateuser">
-						<i class="icon-cog"></i> 修改用户状态
+					<button class="btn btn-danger" id="deleteSession">
+						<i class="icon-minus"></i> 删除板块
 					</button>
-					<input type="text" placeholder="请输入用户名" class="btn" id="queryUser_input">
-					<button class="btn btn-success" id="queryUser_btn">
+					<select name="queryType" class="btn btn-default" id="queryType">
+						<option value="0">请选择查询类型</option>
+						<option value="1">版名</option>
+						<option value="2">类型</option>
+						<option value="3">创建人</option>
+					</select> 
+					<input type="text" placeholder="请选择查询类型" class="btn"
+						id="querySession_input">
+					<button class="btn btn-success" id="querySession_btn">
 						<i class="icon-search"></i>
 					</button>
 					<div class="btn-group"></div>
 				</div>
 				<div class="well">
-					<table id="mytable">
+					<table id="sessionTable">
 
 					</table>
 				</div>
 
 
-				<div class="modal fade" id="userModal" tabindex="-1" role="dialog"
-					aria-hidden="true">
-					<!-- /.modal-dialog -->
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<!--class="close"关闭的css特效 data-dismiss="modal"关闭功能  aria-hidden="true"关闭后隐藏-->
-								<button type="button" class="close" data-dismiss="modal"
-									aria-hidden="true">×</button>
-								<h4 class="modal-title">修改权限</h4>
-							</div>
-							<div class="modal-body">
-								<!-- 模态窗口内容 -->
-								<form id="userModal_form" class="form-horizontal">
-									<input type="hidden" name="uid" id="uid">
-									<div class="form-group" style="margin-top: 15px">
-										<label class="control-label col-sm-2" for="sname">用户昵称</label>
-										<div class="col-sm-7 col-sm-offset-1">
-											<input type="text" class="form-control" id="uname">
-										</div>
-									</div>
-
-									<div class="form-group" style="margin-top: 15px">
-										<label class="control-label col-sm-2">修改权限</label>
-										<div class="col-sm-7 col-sm-offset-1">
-											<select name="ustate">
-												<option value="0">正常登陆</option>
-												<option value="1">禁止登陆</option>
-											</select>
-										</div>
-									</div>
-								</form>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-default"
-									data-dismiss="modal">关闭</button>
-								<button type="button" class="btn btn-primary"
-									id="userModal_submit">提交</button>
-							</div>
-						</div>
-						<!-- /.modal-content -->
-					</div>
-					<!-- /.modal-dialog -->
-				</div>
 			</div>
 		</div>
 	</div>
@@ -95,66 +60,79 @@
 </body>
 <script type="text/javascript">
 	$(function() {
+		//选择查询类型
+		$("#queryType").change(function(){
+			var type=$(this).val();
+			if(type==0)
+				$('#querySession_input').attr("placeholder","请选择查询类型");
+			else if(type==1)
+				$('#querySession_input').attr("placeholder","请输入版块名");
+			else if(type==2)
+				$('#querySession_input').attr("placeholder","请输入类型");
+			else if(type==3)
+				$('#querySession_input').attr("placeholder","请输入创建人");
+		});
+		
 		
 		//初始化table
-		var tbObj = new TableInit();
+		var tbObj = new SessionTableInit();
 		tbObj.Init();
-		
-		$("#queryUser_btn").click(queryUser);
-		
-		$("#queryUser_input").on('keydown',function(event){
-			if(event.keyCode==13){
+
+		$("#querySession_btn").click(queryUser);
+
+		$("#querySession_input").on('keydown', function(event) {
+			if (event.keyCode == 13) {
 				queryUser();
 			}
 		});
-		
-		function queryUser(){
-			$("#mytable").bootstrapTable("refresh");
+
+		function queryUser() {
+			$("#sessionTable").bootstrapTable("refresh");
 		}
-		
-		//修改按钮点击
-		$('#updateuser').click(function(){
-			var selection = $("#mytable").bootstrapTable("getSelections");
-			if(selection==null||selection==""){
-				toastr.warning("请勾选要修改的用户");
+
+		//删除按钮点击
+		$('#deleteSession').click(function() {
+			var selection = $("#sessionTable").bootstrapTable("getSelections");
+			if (selection == null || selection == "") {
+				toastr.warning("请勾选要删除的板块");
 				return;
-			}else if(selection.length>1){
-				toastr.warning("一次只能修改一个用户");
-				return;
-			}else{
-				console.log(selection[0]);
-				user = selection[0];
-				$('#uid').val(user.uid);
-				$('#uname').val(user.uname);
-				$('#userModal').modal("show");
+			} else {
+				var sids = new Array();
+				$.each(selection, function(i, session) {
+					sids.push(session.sid);
+				});
+				console.log(sids);
+				deleteSession(sids);
 			}
 		});
-		//模态按钮的提交
-		$('#userModal_submit').click(function(){
-			var param = $("#userModal_form").serializeJson();
-			console.log(param);
+	
+		function deleteSession(sids){
 			$.ajax({
 				type:'post',
-				url:'../content/updateUserState.htm',
-				data:JSON.stringify(param),
+				data:JSON.stringify(sids),
+				url:'../session/deleteSession.htm',
 				dataType:'json',
 				contentType:'application/json',
 				success:function(data){
 					if(data){
-						$("#userModal").modal("hide");
-						$("#mytable").bootstrapTable("refresh");
-						toastr.success("修改成功");
+						toastr.error('删除成功！');
+						$("#sessionTable").bootstrapTable("refresh");
 					}else{
-						toastr.error("修改失败");						
+						toastr.error("无法删除!");
 					}
 				},
 				error:function(req,status,ex){toastr.error("服务器错误");},
-				timeout:60000
+				timeout:6000
+			});
+		}
+		$.query("../session/getSessionPageTest.htm", function(data) {
+			var users = data.datas.list
+			console.log(users)
+			$.each(users, function(i, user) {
+				console.log(user);
 			});
 		});
-
 	});
-	
 </script>
 
 

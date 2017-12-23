@@ -4,21 +4,30 @@ import javax.annotation.Resource;
 
 import org.junit.Test;
 
+import service.SessionService;
 import test.BaseJUnit4Test;
-import dao.SessionDao;
 
 public class testSessionService extends BaseJUnit4Test{
-	private SessionDao sessionDao;
-	public SessionDao getSessionDao() {
-		return sessionDao;
+	private SessionService sessionService;
+	
+	public SessionService getSessionService() {
+		return sessionService;
 	}
 	@Resource
-	public void setSessionDao(SessionDao sessionDao) {
-		this.sessionDao = sessionDao;
+	public void setSessionService(SessionService sessionService) {
+		this.sessionService = sessionService;
 	}
 	@Test
 	public void testQueryAllSession() {
-		System.out.println(sessionDao.queryAllSession());
+		System.out.println(sessionService.queryAllSession());
 	}
-
+		@Test
+		public void testQuerySessionByName(){
+			System.out.println(sessionService.querySessionByName("java"));
+		}
+		
+		@Test
+		public void testQuerySessionByProfile(){
+			System.out.println(sessionService.querySessionByProfile("端"));
+		}
 }
