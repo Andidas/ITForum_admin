@@ -1,5 +1,7 @@
 package service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -43,6 +45,12 @@ public class TopicServiceImpl implements TopicService {
 	public List<Topic> queryTopicByMaster(String userid) {
 		int id = Integer.parseInt(userid);
 		return topicDao.queryTopicByMaster(id);
+	}
+	@Override
+	public List<Topic> queryTopicsRegisterByToday() {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		String ttime = df.format(new Date());
+		return topicDao.queryTopicsRegisterByToday(ttime);
 	}
 
 	

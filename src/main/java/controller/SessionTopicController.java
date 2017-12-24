@@ -36,6 +36,16 @@ public class SessionTopicController {
 	}
 	
 	/**
+	 * 获得今天发布的帖子
+	 * @return
+	 */
+	@RequestMapping(value="/getTopicRegisterByToday",method=RequestMethod.GET)
+	public @ResponseBody List<Topic> getTopicRegisterByToday(){
+		return  topicService.queryTopicsRegisterByToday();
+	}
+	
+	
+	/**
 	 * 得到topic分页
 	 * @return
 	 */

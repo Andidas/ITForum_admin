@@ -8,6 +8,7 @@ import java.util.List;
 
 
 
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -104,6 +105,9 @@ public interface UserDao {
 	 */
 	@Update("update `user` set ustate=#{ustate} where uid = #{uid}")
 	int updateUserState(User user);
+	
+	@Select("select * from `user` where uregdate >= #{_parameter}")
+	List<User> queryUsersRegisterByToday(String ttime);
 	
 	
 }

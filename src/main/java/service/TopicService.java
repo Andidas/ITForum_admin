@@ -44,5 +44,12 @@ public interface TopicService {
 	 * @return
 	 */
 	List<Topic> queryTopicByMaster(String userid);
+
+
+	/**
+	 * 查询今天发布的帖子
+	 * @return
+	 */
+	List<Topic> queryTopicsRegisterByToday();
 	
 }

@@ -1,7 +1,9 @@
 package testService;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.annotation.Resource;
 
@@ -27,7 +29,9 @@ public class testUserService extends BaseJUnit4Test{
 	}
 	@Test
 	public void testUpdateUserState(){
-//		assertTrue(service.updateUserState("", "1")>0);
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		String ttime = df.format(new Date());
+		System.out.println(ttime);
 	}
 	
 	@Test
@@ -36,44 +40,10 @@ public class testUserService extends BaseJUnit4Test{
 		System.out.println(service.queryUserList());
 	}
 
-	@Test
-	public void testQueryUser() {
-		fail("尚未实现");
-	}
-
-	@Test
-	public void testQueryUserOne() {
-		fail("尚未实现");
-	}
-
-	@Test
-	public void testCheckUser() {
-		fail("尚未实现");
-	}
-
-	@Test
-	public void testCheckUser_isSha_1() {
-		fail("尚未实现");
-	}
-
-	@Test
-	public void testIsNameExist() {
-		fail("尚未实现");
-	}
-
-	@Test
-	public void testUpdateUser() {
-		fail("尚未实现");
-	}
-
-	@Test
-	public void testAddUser() {
-		fail("尚未实现");
-	}
-
-	@Test
-	public void testModifyPasswordByEmail() {
-		fail("尚未实现");
+	@Test 
+	public void queryUsersRegisterByToday(){
+		System.out.println(service.queryUsersRegisterByToday());
+		System.out.println(service.queryUsersRegisterByToday().size());
 	}
 
 }

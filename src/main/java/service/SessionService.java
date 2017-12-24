@@ -78,5 +78,6 @@ public interface SessionService {
 	List<Session> querySessionByMasterid(String smasterid);
 	
 	
+	
 }		
  

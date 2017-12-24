@@ -25,27 +25,8 @@ import entity.User;
 @Controller
 @RequestMapping("/content")
 public class AdminContentController {
-	
 	private PrivateLetterService privateLetterService ;
-	
-	
-	public PrivateLetterService getPrivateLetterService() {
-		return privateLetterService;
-	}
-	@Resource
-	public void setPrivateLetterService(PrivateLetterService privateLetterService) {
-		this.privateLetterService = privateLetterService;
-	}
-
 	private UserService userService;
-	
-	public UserService getUserService() {
-		return userService;
-	}
-	@Resource
-	public void setUserService(UserService userService) {
-		this.userService = userService;
-	}
 	
 	/**
 	 * 获得用户分页
@@ -67,6 +48,15 @@ public class AdminContentController {
 		}
 		PageInfo<User> page = new PageInfo<User>(users);
 		return new JsonResult<User>(page);
+	}
+	
+	/**
+	 * 获得今天注册的用户
+	 * @return
+	 */
+	@RequestMapping(value="/getUserRegisterByToday",method=RequestMethod.GET)
+	public @ResponseBody List<User> getUserRegisterByToday(){
+		return  userService.queryUsersRegisterByToday();
 	}
 	
 	/**
@@ -96,13 +86,7 @@ public class AdminContentController {
 		return new JsonResult<PrivateLetter>(page);
 	}
 	
-	@RequestMapping(value="/getSystemInfoPageTest",method=RequestMethod.GET)
-	public @ResponseBody JsonResult<PrivateLetter> getSystemInfoPage(){
-		PageHelper.startPage(1,5);
-		List<PrivateLetter> PrivateLetterds=privateLetterService.queryAllSystemMessage();
-		PageInfo<PrivateLetter> page = new PageInfo<PrivateLetter>(PrivateLetterds);
-		return new JsonResult<PrivateLetter>(page);
-	}
+
 	
 	/**
 	 * 获得反馈信息
@@ -121,13 +105,7 @@ public class AdminContentController {
 		return new JsonResult<PrivateLetter>(page);
 	}
 	
-	@RequestMapping(value="/getFeedbackPageTest",method=RequestMethod.GET)
-	public @ResponseBody JsonResult<PrivateLetter> getFeedbackPage(){
-		PageHelper.startPage(1,5);
-		List<PrivateLetter> PrivateLetterds=privateLetterService.queryAllFeedback();
-		PageInfo<PrivateLetter> page = new PageInfo<PrivateLetter>(PrivateLetterds);
-		return new JsonResult<PrivateLetter>(page);
-	}
+	
 	
 	/**
 	 * 反馈信息标记为已读
@@ -165,6 +143,19 @@ public class AdminContentController {
 	}
 	
 
-	
+	public PrivateLetterService getPrivateLetterService() {
+		return privateLetterService;
+	}
+	@Resource
+	public void setPrivateLetterService(PrivateLetterService privateLetterService) {
+		this.privateLetterService = privateLetterService;
+	}
+	public UserService getUserService() {
+		return userService;
+	}
+	@Resource
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
 	
 }

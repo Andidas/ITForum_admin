@@ -56,6 +56,9 @@ public interface TopicDao {
 	@Select("select * from topic where tuid = #{_parameter}")
 	List<Topic> queryTopicByMaster(int userid);
 
+	@Select("select * from topic where ttime >=#{_parameter}")
+	List<Topic> queryTopicsRegisterByToday(String ttime);
+
 
 
 

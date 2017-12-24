@@ -87,8 +87,8 @@ public class PrivateLetterServiceImpl implements PrivateLetterService {
 		List<User> users = userDao.queryUserList();
 		for (User user : users) {
 			int id = user.getUid();
-			letters.add(new PrivateLetter(id,admin_id,id,admin_id,ConstantsData.SYSTEM_MESSAGE,time,content));
-			letters.add(new PrivateLetter(admin_id,id,id,admin_id,ConstantsData.SYSTEM_MESSAGE,time,content));
+			letters.add(new PrivateLetter(id,admin_id,admin_id,id,ConstantsData.SYSTEM_MESSAGE,time,content));
+			letters.add(new PrivateLetter(admin_id,id,admin_id,id,ConstantsData.SYSTEM_MESSAGE,time,content));
 		}
 		
 		return privateLetterDao.batchAdd(letters)>0;
