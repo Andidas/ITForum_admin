@@ -1,9 +1,7 @@
 package dao;
 
 import java.util.List;
-import java.util.Map;
 
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -58,7 +56,7 @@ public interface SessionDao {
 	int deleteSession(List<Integer> sid);
 	
 	/**
-	 * 查询所有session,模糊查询，条件smasterid
+	 * 查询所有session,准确查询，条件smasterid
 	 * @param sname
 	 * @return
 	 */
@@ -70,6 +68,6 @@ public interface SessionDao {
 	 * @param sname
 	 * @return
 	 */
-	@Select("select * from `session` where sprofile = #{_parameter}")
+	@Select("select * from `session` where sprofile like #{_parameter}")
 	List<Session> querySessionByProfile(String sprofile);
 }

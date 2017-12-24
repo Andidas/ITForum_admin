@@ -3,7 +3,7 @@
 
 <head>
 <meta charset="utf-8">
-<title>用户列表</title>
+<title>版块列表</title>
 <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
@@ -16,12 +16,12 @@
 <body class="">
 	<div class="content">
 		<div class="header">
-			<h1 class="page-title">板块列表</h1>
+			<h1 class="page-title">版块列表</h1>
 		</div>
 
 		<ul class="breadcrumb">
 			<li><a href="index.htm">主页</a></li>
-			<li class="active">板块列表</li>
+			<li class="active">版块列表</li>
 		</ul>
 
 
@@ -31,7 +31,7 @@
 				<!-- 权限修改 -->
 				<div class="btn-toolbar">
 					<button class="btn btn-danger" id="deleteSession">
-						<i class="icon-minus"></i> 删除板块
+						<i class="icon-minus"></i> 删除版块
 					</button>
 					<select name="queryType" class="btn btn-default" id="queryType">
 						<option value="0">请选择查询类型</option>
@@ -94,7 +94,7 @@
 		$('#deleteSession').click(function() {
 			var selection = $("#sessionTable").bootstrapTable("getSelections");
 			if (selection == null || selection == "") {
-				toastr.warning("请勾选要删除的板块");
+				toastr.warning("请勾选要删除的版块");
 				return;
 			} else {
 				var sids = new Array();
@@ -125,13 +125,7 @@
 				timeout:6000
 			});
 		}
-		$.query("../session/getSessionPageTest.htm", function(data) {
-			var users = data.datas.list
-			console.log(users)
-			$.each(users, function(i, user) {
-				console.log(user);
-			});
-		});
+		
 	});
 </script>
 

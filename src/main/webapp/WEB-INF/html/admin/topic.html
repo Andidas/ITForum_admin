@@ -1,40 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
 
-	<head>
-		<meta charset="utf-8">
-		<title>推荐对象管理</title>
-		<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="description" content="">
-		<meta name="author" content="lwy">
+<head>
+<meta charset="utf-8">
+<title>帖子列表</title>
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="lwy">
 
-		
 
-	</head>
 
-	<body class="">
-		<div class="content">
+</head>
 
-			<div class="header">
+<body class="">
+	<div class="content">
+		<div class="header">
+			<h1 class="page-title">帖子列表</h1>
+		</div>
 
-				<h1 class="page-title">推荐管理</h1>
-			</div>
+		<ul class="breadcrumb">
+			<li><a href="index.htm">主页</a></li>
+			<li class="active">帖子列表</li>
+		</ul>
 
-			<ul class="breadcrumb">
-				<li><a href="index.htm">主页</a> <span class="divider">/</span></li>
-				<li class="active">推荐管理</li>
-			</ul>
 
-			<div class="container-fluid">
-				<div class="row-fluid">
+		<div class="container-fluid">
+			<div class="row-fluid">
 
-					<div>
-						筛选条件
-					</div>
+				<!-- 权限修改 -->
+				<div class="btn-toolbar">
+					<button class="btn btn-danger" id="deleteTopic">
+						<i class="icon-minus"></i> 删除帖子
+					</button>
+					<select name="queryType" class="btn btn-default" id="queryType">
+						<option value="0">请选择查询类型</option>
+						<option value="1">题目</option>
+						<option value="2">内容</option>
+						<option value="3">创建人</option>
+					</select> 
+					<input type="text" placeholder="请选择查询类型" class="btn"
+						id="queryTopic_input">
+					<button class="btn btn-success" id="queryTopic_btn">
+						<i class="icon-search"></i>
+					</button>
+					<div class="btn-group"></div>
 				</div>
+				<div class="well">
+					<table id="topicTable">
+
+					</table>
+				</div>
+
+
 			</div>
 		</div>
-	</body>
+	</div>
+
+</body>
+<script type="text/javascript">
+	$(function() {
+		//选择查询类型
+		$("#queryType").change(function(){
+			var type=$(this).val();
+			if(type==0)
+				$('#queryTopic_input').attr("placeholder","请选择查询类型");
+			else if(type==1)
+				$('#queryTopic_input').attr("placeholder","请输入题目");
+			else if(type==2)
+				$('#queryTopic_input').attr("placeholder","请输入内容");
+			else if(type==3)
+				$('#queryTopic_input').attr("placeholder","请输入创建人");
+		});
+		
+		
+		//初始化table
+		var tbObj = new topicTableInit();
+		tbObj.Init();
+
+		$("#queryTopic_btn").click(queryUser);
+
+		$("#queryTopic_input").on('keydown', function(event) {
+			if (event.keyCode == 13) {
+				queryUser();
+			}
+		});
+
+		function queryUser() {
+			$("#topicTable").bootstrapTable("refresh");
+		}
+
+		//删除按钮点击
+		$('#deleteTopic').click(function() {
+			var selection = $("#topicTable").bootstrapTable("getSelections");
+			if (selection == null || selection == "") {
+				toastr.warning("请勾选要删除的帖子");
+				return;
+			} else {
+				var tids = new Array();
+				$.each(selection, function(i, topic) {
+					tids.push(topic.tid);
+				});
+				console.log(tids);
+				deleteTopic(tids);
+			}
+		});
+	
+		function deleteTopic(tids){
+			$.ajax({
+				type:'post',
+				data:JSON.stringify(tids),
+				url:'../session/deleteTopic.htm',
+				dataType:'json',
+				contentType:'application/json',
+				success:function(data){
+					if(data){
+						toastr.error('删除成功！');
+						$("#topicTable").bootstrapTable("refresh");
+					}else{
+						toastr.error("无法删除!");
+					}
+				},
+				error:function(req,status,ex){toastr.error("服务器错误");},
+				timeout:6000
+			});
+		}
+		$.query("../session/getTopicPageTest.htm", function(data) {
+			var users = data.datas.list
+			console.log(users)
+			$.each(users, function(i, user) {
+				console.log(user);
+			});
+		});
+	});
+</script>
+
+
 
 </html>

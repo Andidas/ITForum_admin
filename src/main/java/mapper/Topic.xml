@@ -20,20 +20,27 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="dao.SessionDao">
+<mapper namespace="dao.TopicDao">
+			
+
+	<!-- 模糊搜索题目 -->
+	<select id="queryTopicByTitle" parameterType="STRING" resultType="entity.Topic">
+		select * from topic where ttopic like CONCAT(CONCAT('%', #{_parameter}), '%') 
+	</select>
+	
+	
+	<!-- 模糊搜索内容 -->
+	<select id="queryTopicByContent" parameterType="STRING" resultType="entity.Topic">
+		select * from topic where ttopic like CONCAT(CONCAT('%', #{_parameter}), '%') 
+	</select>
 	
 	<!-- 批量删除 -->
-	<delete id="deleteSession" parameterType="java.util.List">
-		delete from `session` where sid in
+	<delete id="deleteTopics" parameterType="java.util.List">
+		delete from topic where tid in
 		<foreach collection="list" item="id" open="(" close=")" separator=",">
 			#{id}
 		</foreach>
 	</delete>
 	
-
-	
-	
-	
-
 	
 </mapper>
