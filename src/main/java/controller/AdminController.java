@@ -58,6 +58,11 @@ public class AdminController {
 	public String adminIndex() {
 		return "admin/index";
 	}
+	
+	@RequestMapping("word")
+	public String adminWord() {
+		return "admin/word";
+	}
 
 	@RequestMapping("/admin_signIn")
 	public String adminLogin() {

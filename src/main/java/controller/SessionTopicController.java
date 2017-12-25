@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import service.ReplyService;
+import service.SensitiveWordService;
 import service.SessionService;
 import service.TopicService;
 
@@ -19,6 +20,7 @@ import com.github.pagehelper.PageInfo;
 
 import entity.JsonResult;
 import entity.Reply;
+import entity.SensitiveWord;
 import entity.Session;
 import entity.Topic;
 
@@ -29,15 +31,45 @@ public class SessionTopicController {
 	private TopicService topicService;
 	private SessionService sessionService;
 	private ReplyService replyService;
+	private SensitiveWordService sensitiveWordService;
 	
+
 	
 
 	@RequestMapping(value="/getTopicPageTest",method=RequestMethod.GET)
-	public @ResponseBody JsonResult<Reply> getTopicPage(){
+	public @ResponseBody JsonResult<SensitiveWord> getTopicPage(){
 		PageHelper.startPage(1,5);
-		List<Reply> Sessionds=replyService.queryReplyAll();
-		PageInfo<Reply> page = new PageInfo<Reply>(Sessionds);
-		return new JsonResult<Reply>(page);
+		List<SensitiveWord> Sessionds=sensitiveWordService.findAll();
+		PageInfo<SensitiveWord> page = new PageInfo<SensitiveWord>(Sessionds);
+		return new JsonResult<SensitiveWord>(page);
+	}
+	
+	/**
+	 * 新增敏感词
+	 * @param 
+	 * @return
+	 */
+	@RequestMapping(value="/addSensitiveWord",method=RequestMethod.POST)
+	public @ResponseBody boolean addSensitiveWord(@RequestBody SensitiveWord word){
+		return sensitiveWordService.addSensitiveWord(word);
+	}
+	
+	/**
+	 * 得到敏感词分页
+	 * @return
+	 */
+	@RequestMapping(value="/getSensitivePage",method=RequestMethod.GET)
+	public @ResponseBody JsonResult<SensitiveWord> getSensitivePage(int pageSize,int pageNum,
+			String sort,String order,String info){
+		PageHelper.startPage(pageNum,pageSize,sort+" "+order);
+		List<SensitiveWord> Sessionds= null;
+		if(info!=null&&!info.equals("")){
+			Sessionds = sensitiveWordService.querySensitiveWord(info);
+		}else{			
+			Sessionds = sensitiveWordService.findAll();
+		}
+		PageInfo<SensitiveWord> page = new PageInfo<SensitiveWord>(Sessionds);
+		return new JsonResult<SensitiveWord>(page);
 	}
 	
 	/**
@@ -93,6 +125,16 @@ public class SessionTopicController {
 	@RequestMapping(value="/deleteReply",method=RequestMethod.POST)
 	public @ResponseBody boolean deleteReply(@RequestBody List<Integer> rids){
 		return 	replyService.deleteReply(rids);
+	}
+	
+	/**
+	 * 删除敏感词
+	 * @param sids
+	 * @return
+	 */
+	@RequestMapping(value="/deleteSensitive",method=RequestMethod.POST)
+	public @ResponseBody boolean deleteSensitive(@RequestBody List<Integer> wids){
+		return 	sensitiveWordService.batchDelete(wids);
 	}
 	
 	/**
@@ -222,5 +264,13 @@ public class SessionTopicController {
 	@Resource
 	public void setReplyService(ReplyService replyService) {
 		this.replyService = replyService;
+	}
+	
+	public SensitiveWordService getSensitiveWordService() {
+		return sensitiveWordService;
+	}
+	@Resource
+	public void setSensitiveWordService(SensitiveWordService sensitiveWordService) {
+		this.sensitiveWordService = sensitiveWordService;
 	}
 }
