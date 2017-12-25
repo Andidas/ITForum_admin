@@ -12,9 +12,9 @@
 
 <script src="../js/adminNav.js"></script>
 <style type="text/css">
-	#mainBody a{ 
-		text-decoration: none;
-	}	
+#mainBody a {
+	text-decoration: none;
+}
 </style>
 <script type="text/javascript">
 	$(function(){
@@ -40,15 +40,16 @@
 
 <body id="mainBody">
 
-	<div class="navbar" style="    height: 41px;">
+	<div class="navbar" style="height: 41px;">
 		<div class="navbar-inner" style="height: 100%;">
 			<ul class="nav pull-right">
 
-				
-				<li id="fat-menu" class="dropdown">
-					<a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
-						 <i class="icon-user"></i><i id="admin_eamil"></i> <i class="icon-caret-down"></i>
-					</a>
+
+				<li id="fat-menu" class="dropdown"><a href="#" role="button"
+					class="dropdown-toggle" data-toggle="dropdown"> <i
+						class="icon-user"></i><i id="admin_eamil"></i> <i
+						class="icon-caret-down"></i>
+				</a>
 
 					<ul class="dropdown-menu">
 						<li class="divider visible-phone"></li>
@@ -56,68 +57,80 @@
 					</ul></li>
 
 			</ul>
-			<a class="brand" href="index.htm" style="font-size: 20px;line-height: 41px;"><span class="first">IT</span>
+			<a class="brand" href="index.htm"
+				style="font-size: 20px; line-height: 41px;"><span class="first">IT</span>
 				<span class="second">Forum</span></a>
 		</div>
 	</div>
 
 	<div class="sidebar-nav">
-		<div style="margin-top:6px;"></div>
-		<a href="javaScript:;" data="main.htm"  class="nav-header contentJump">
+		<div style="margin-top: 6px;"></div>
+		<a href="javaScript:;" data="main.htm" class="nav-header contentJump">
 			<i class="icon-home"></i>主页
-		</a>
-		<a href="javaScript:;" data="user_list.htm"  class="nav-header contentJump">
-			<i class="icon-user"></i>用户信息<span class="label label-info">+3</span>
-		</a>
-		
-		<a href="#accounts-menu" class="nav-header collapsed" data-toggle="collapse">
-			<i class="icon-briefcase"></i>管理员<i class="icon-chevron-up"></i>
+		</a> <a href="javaScript:;" data="user_list.htm"
+			class="nav-header contentJump"> <i class="icon-user"></i>用户信息<span
+			class="label label-info">+3</span>
+		</a> <a href="#accounts-menu" class="nav-header collapsed"
+			data-toggle="collapse"> <i class="icon-briefcase"></i>管理员<i
+			class="icon-chevron-up"></i>
 		</a>
 		<ul id="accounts-menu" class="nav nav-list collapse">
-			<li><a href="logout.htm" >登录</a></li>
-			<li><a href="admin_signUp.htm" >注册</a></li>
-			<li><a href="admin_resetPassword.htm" >修改密码</a></li>
+			<li><a href="logout.htm">登录</a></li>
+			<li><a href="admin_signUp.htm">注册</a></li>
+			<li><a href="admin_resetPassword.htm">修改密码</a></li>
 		</ul>
-	
-		<a href="#notice-menu" class="nav-header collapsed"	data-toggle="collapse">
-			<i class="icon-comment"></i>消息管理<i class="icon-chevron-up"></i>
+
+		<a href="#notice-menu" class="nav-header collapsed"
+			data-toggle="collapse"> <i class="icon-comment"></i>消息管理<i
+			class="icon-chevron-up"></i>
 		</a>
 		<ul id="notice-menu" class="nav nav-list collapse">
-			<li><a href="javaScript:;" data="info_system.htm"  class="contentJump">系统通知</a></li>
-			<li><a href="javaScript:;" data="info_feedback.htm"  class="contentJump">反馈消息</a></li>
+			<li><a href="javaScript:;" data="info_system.htm"
+				class="contentJump">系统通知</a></li>
+			<li><a href="javaScript:;" data="info_feedback.htm"
+				class="contentJump">反馈消息</a></li>
 		</ul>
 
-		<a href="#session-menu" class="nav-header collapsed"	data-toggle="collapse">
-			<i class="icon-tags"></i>板块帖子<i class="icon-chevron-up"></i>
+		<a href="#session-menu" class="nav-header collapsed"
+			data-toggle="collapse"> <i class="icon-tags"></i>板块帖子<i
+			class="icon-chevron-up"></i>
 		</a>
 		<ul id="session-menu" class="nav nav-list collapse">
-			<li><a href="javaScript:;" data="session.htm"  class="contentJump">板块列表</a></li>
-			<li><a href="javaScript:;" data="topic.htm"  class="contentJump">帖子列表</a></li>
+			<li><a href="javaScript:;" data="session.htm"
+				class="contentJump">板块列表</a></li>
+			<li><a href="javaScript:;" data="topic.htm" class="contentJump">帖子列表</a></li>
+			<li><a href="javaScript:;" data="reply.htm" class="contentJump">回帖列表</a></li>
 		</ul>
-		
-		<a href="#error-menu" class="nav-header collapsed" data-toggle="collapse">
-			<i class="icon-exclamation-sign"></i>Error Pages <i class="icon-chevron-up"></i>
+
+		<a href="#error-menu" class="nav-header collapsed"
+			data-toggle="collapse"> <i class="icon-exclamation-sign"></i>Error
+			Pages <i class="icon-chevron-up"></i>
 		</a>
 		<ul id="error-menu" class="nav nav-list collapse">
-			<li><a  href="403.htm" >403 page</a></li>
-			<li><a  href="404.htm" >404 page</a></li>
-			<li><a  href="500.htm" >500 page</a></li>
-			<li><a  href="503.htm" >503 page</a></li>
+			<li><a href="403.htm">403 page</a></li>
+			<li><a href="404.htm">404 page</a></li>
+			<li><a href="500.htm">500 page</a></li>
+			<li><a href="503.htm">503 page</a></li>
 		</ul>
 
-		<a href="#legal-menu" class="nav-header collapsed" data-toggle="collapse">
-			<i class="icon-legal"></i>法律条款<i class="icon-chevron-up"></i>
+		<a href="#legal-menu" class="nav-header collapsed"
+			data-toggle="collapse"> <i class="icon-legal"></i>法律条款<i
+			class="icon-chevron-up"></i>
 		</a>
 		<ul id="legal-menu" class="nav nav-list collapse">
-			<li><a href="javaScript:;" data="privacy_policy.htm"  class="contentJump">隐私策略</a></li>
-			<li><a href="javaScript:;" data="terms_and_conditions.htm"  class="contentJump">条款和合约</a></li>
+			<li><a href="javaScript:;" data="privacy_policy.htm"
+				class="contentJump">隐私策略</a></li>
+			<li><a href="javaScript:;" data="terms_and_conditions.htm"
+				class="contentJump">条款和合约</a></li>
 		</ul>
 
-		<a href="javaScript:;" data="help.htm" class="nav-header contentJump" >
-			<i class="icon-question-sign"></i>帮助</a> 
+		<a href="javaScript:;" data="help.htm" class="nav-header contentJump">
+			<i class="icon-question-sign"></i>帮助
+		</a>
 		<footer>
 			<p class="pull-right">
-				Create By <a href="javaScript:;" title="java开发工程师：刘伟艺" rel="tooltip" target="_blank">Alex </a>
+				Create By <a href="javaScript:;" title="java开发工程师：刘伟艺" rel="tooltip"
+					target="_blank">Alex </a>
 			</p>
 			<p>
 				&copy; 2017 <a href="javaScript:;" target="_blank">Alex</a>
@@ -132,10 +145,11 @@
 <script type="text/javascript">
         $("[rel=tooltip]").tooltip();
     </script>
-    
-    <script type="text/javascript" src="/ITForum_Admin/js/adminUser.js"></script>
-    <script type="text/javascript" src="/ITForum_Admin/js/adminSysInfo.js"></script>
-       <script type="text/javascript" src="/ITForum_Admin/js/adminFeedback.js"></script>
-              <script type="text/javascript" src="/ITForum_Admin/js/adminSession.js"></script>
-                <script type="text/javascript" src="/ITForum_Admin/js/adminTopic.js"></script>
+
+<script type="text/javascript" src="/ITForum_Admin/js/adminUser.js"></script>
+<script type="text/javascript" src="/ITForum_Admin/js/adminSysInfo.js"></script>
+<script type="text/javascript" src="/ITForum_Admin/js/adminFeedback.js"></script>
+<script type="text/javascript" src="/ITForum_Admin/js/adminSession.js"></script>
+<script type="text/javascript" src="/ITForum_Admin/js/adminTopic.js"></script>
+<script type="text/javascript" src="/ITForum_Admin/js/adminReply.js"></script>
 </html>

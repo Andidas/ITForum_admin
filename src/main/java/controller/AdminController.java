@@ -119,8 +119,13 @@ public class AdminController {
 	}
 
 	@RequestMapping("/session")
-	public String adminUserEdit() {
+	public String adminSession() {
 		return "admin/session";
+	}
+	
+	@RequestMapping("/reply")
+	public String adminReply() {
+		return "admin/reply";
 	}
 
 	/**

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import service.ReplyService;
 import service.SessionService;
 import service.TopicService;
 
@@ -17,6 +18,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 import entity.JsonResult;
+import entity.Reply;
 import entity.Session;
 import entity.Topic;
 
@@ -26,13 +28,43 @@ import entity.Topic;
 public class SessionTopicController {
 	private TopicService topicService;
 	private SessionService sessionService;
+	private ReplyService replyService;
+	
+	
 
 	@RequestMapping(value="/getTopicPageTest",method=RequestMethod.GET)
-	public @ResponseBody JsonResult<Topic> getTopicPage(){
+	public @ResponseBody JsonResult<Reply> getTopicPage(){
 		PageHelper.startPage(1,5);
-		List<Topic> Sessionds=topicService.queryTopicAll();
-		PageInfo<Topic> page = new PageInfo<Topic>(Sessionds);
-		return new JsonResult<Topic>(page);
+		List<Reply> Sessionds=replyService.queryReplyAll();
+		PageInfo<Reply> page = new PageInfo<Reply>(Sessionds);
+		return new JsonResult<Reply>(page);
+	}
+	
+	/**
+	 * 得到reply分页
+	 * @return
+	 */
+	@RequestMapping(value="/getReplyPage",method=RequestMethod.GET)
+	public @ResponseBody JsonResult<Reply> getReplyPage(int pageSize,int pageNum,
+			String sort,String order,String info){
+		PageHelper.startPage(pageNum,pageSize,sort+" "+order);
+		List<Reply> Sessionds= null;
+		if(info!=null&&!info.equals("")){
+			Sessionds = replyService.queryReplyByContent(info);
+		}else{			
+			Sessionds = replyService.queryReplyAll();
+		}
+		PageInfo<Reply> page = new PageInfo<Reply>(Sessionds);
+		return new JsonResult<Reply>(page);
+	}	
+	/**
+	 * 删除reply
+	 * @param sids
+	 * @return
+	 */
+	@RequestMapping(value="/deleteReply",method=RequestMethod.POST)
+	public @ResponseBody boolean deleteReply(@RequestBody List<Integer> rids){
+		return 	replyService.deleteReply(rids);
 	}
 	
 	/**
@@ -155,5 +187,12 @@ public class SessionTopicController {
 	@Resource
 	public void setTopicService(TopicService topicService) {
 		this.topicService = topicService;
+	}
+	public ReplyService getReplyService() {
+		return replyService;
+	}
+	@Resource
+	public void setReplyService(ReplyService replyService) {
+		this.replyService = replyService;
 	}
 }
