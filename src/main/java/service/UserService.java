@@ -35,5 +35,11 @@ public interface UserService {
 	 * @return
 	 */
 	public List<User> queryUsersRegisterByToday();
+
+	/**
+	 * 获得用户数
+	 * @return
+	 */
+	public int queryUserCount();
 	
 }

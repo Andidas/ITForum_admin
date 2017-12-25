@@ -2,14 +2,13 @@ package service.impl;
 
 
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import dao.SessionDao;
 import service.SessionService;
+import dao.SessionDao;
 import entity.Session;
 
 
@@ -33,38 +32,6 @@ public class SessionServiceImpl implements SessionService {
 		return sessionDao.deleteSession(sid)>0;
 	}
 
-	@Override
-	public List<Session> queryAllSessionByProfile(String sprofile) {
-		// TODO 自动生成的方法存根
-		return null;
-	}
-
-	@Override
-	public List<String> queryAllProfile() {
-		// TODO 自动生成的方法存根
-		return null;
-	}
-
-	@Override
-	public int querySessionID(String sname) {
-		// TODO 自动生成的方法存根
-		return 0;
-	}
-
-	@Override
-	public List<Session> searchSession(String searchText) {
-		// TODO 自动生成的方法存根
-		return null;
-	}
-
-
-	
-
-	@Override
-	public List<Map<String, Object>> queryAllSessionByMaster(String userid) {
-		// TODO 自动生成的方法存根
-		return null;
-	}
 
 
 	@Override
@@ -83,6 +50,10 @@ public class SessionServiceImpl implements SessionService {
 	public List<Session> querySessionByMasterid(String smasterid) {
 		int master = Integer.parseInt(smasterid);
 		return sessionDao.querySessionByMasterid(master);
+	}
+	@Override
+	public int querySessionCount() {
+		return sessionDao.querySessionCount();
 	}
 	
 

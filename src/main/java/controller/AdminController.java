@@ -137,26 +137,7 @@ public class AdminController {
 		return "admin/user_list";
 	}
 
-	@RequestMapping("/403")
-	public String admin403() {
-		return "403";
-	}
-
-	@RequestMapping("/404")
-	public String admin404() {
-		return "404";
-	}
-
-	@RequestMapping("/500")
-	public String admin500() {
-		return "500";
-	}
-
-	@RequestMapping("/503")
-	public String admin503() {
-		return "503";
-	}
-
+	
 	
 	/**
 	 * get Session

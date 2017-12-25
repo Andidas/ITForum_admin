@@ -30,13 +30,6 @@ public class UserServiceImpl implements UserService{
 		return userDao.queryUserList();
 	}
 
-
-
-	
-
-
-
-
 	@Override
 	public int updateUserState(User user) {
 		return userDao.updateUserState(user);
@@ -50,6 +43,10 @@ public class UserServiceImpl implements UserService{
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		String ttime = df.format(new Date());
 		return userDao.queryUsersRegisterByToday(ttime);
+	}
+	@Override
+	public int queryUserCount() {
+		return userDao.queryUserCount();
 	}
 	
 }

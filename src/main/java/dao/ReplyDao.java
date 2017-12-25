@@ -34,4 +34,11 @@ public interface ReplyDao {
 	 */
 	@Select("select * from reply where rcontent like #{_parameter}")
 	List<Reply> queryReplyByContent(String info);
+
+	/**
+	 * 查询总回复数
+	 * @return
+	 */
+	@Select("select count(*) from reply")
+	int queryReplyCount();
 }

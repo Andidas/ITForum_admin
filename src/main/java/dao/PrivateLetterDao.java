@@ -63,12 +63,7 @@ public interface PrivateLetterDao {
 	 */
 	void batchDelete(List<Integer> ids);
 	
-	/**
-	 * 分页查询我的信息列表 
-	 * @param pageParam
-	 * @return
-	 */
-	//List<Map<String,Object>> queryMyPrivateLetterList(PageParam pageParam);
+	
 	
 	/**
 	 * 信息列表数据的条数
@@ -84,12 +79,20 @@ public interface PrivateLetterDao {
 	 */
 	boolean markReaded(List<Integer> pids);
 
-
-	
 	/**
-	 * 分页查询我的私信列表详情
-	 * @param param 
+	 * 查询未读的系统消息总数
 	 * @return
 	 */
-	//List<Map<String,Object>> queryMyPrivateLetterList_detail(PageParam pageParam);
+	@Select("select count(*) from private_letter where message_type = 2 and user_id=37 and friend_id<>37")
+	public int querySystemCount();
+
+	/**
+	 * 查询未读的系统消息总数
+	 * @return
+	 */
+	@Select("select count(*) from private_letter where message_type = 3 and user_id = 37 and pstatus=1")
+	public int queryFeedbackCount();
+
+
+
 }

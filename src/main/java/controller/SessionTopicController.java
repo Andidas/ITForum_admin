@@ -41,6 +41,34 @@ public class SessionTopicController {
 	}
 	
 	/**
+	 * 获得总版块数
+	 * @return
+	 */
+	@RequestMapping(value="/querySessionCount",method=RequestMethod.GET)
+	public @ResponseBody int querySessionCount(){
+		return sessionService.querySessionCount();
+	}
+	
+	/**
+	 * 获得总帖子数
+	 * @return
+	 */
+	@RequestMapping(value="/queryTopicCount",method=RequestMethod.GET)
+	public @ResponseBody int queryTopicCount(){
+		return topicService.queryTopicCount();
+	}
+	
+	
+	/**
+	 * 获得总回复数
+	 * @return
+	 */
+	@RequestMapping(value="/queryReplyCount",method=RequestMethod.GET)
+	public @ResponseBody int queryReplyCount(){
+		return replyService.queryReplyCount();
+	}
+	
+	/**
 	 * 得到reply分页
 	 * @return
 	 */

@@ -4,15 +4,13 @@
 	<div class="content">
 		<div class="header">
 			<div class="stats">
+				<!--  <p class="stat">
+					<span class="number" id="systemcount">53</span>系统消息
+				</p>-->
 				<p class="stat">
-					<span class="number">53</span>tickets
+					<span class="number" id="feedbackcount">27</span>反馈消息
 				</p>
-				<p class="stat">
-					<span class="number">27</span>tasks
-				</p>
-				<p class="stat">
-					<span class="number">15</span>waiting
-				</p>
+				
 			</div>
 
 			<h1 class="page-title">主页</h1>
@@ -40,29 +38,29 @@
 							<div class="stat-widget-container">
 								<div class="stat-widget">
 									<div class="stat-button">
-										<p class="title">2,500</p>
+										<p class="title" id="usercount">2,500</p>
 										<p class="detail">用户</p>
 									</div>
 								</div>
 
 								<div class="stat-widget">
 									<div class="stat-button">
-										<p class="title">3,299</p>
+										<p class="title" id="sessioncount">3,299</p>
 										<p class="detail">版块</p>
 									</div>
 								</div>
 
 								<div class="stat-widget">
 									<div class="stat-button">
-										<p class="title">$1,500</p>
-										<p class="detail">帖子</p>
+										<p class="title" id="topiccount">$1,500</p>
+										<p class="detail" >帖子</p>
 									</div>
 								</div>
 
 								<div class="stat-widget">
 									<div class="stat-button">
-										<p class="title">$12,675</p>
-										<p class="detail">Completed</p>
+										<p class="title" id="replycount">$12,675</p>
+										<p class="detail" >回复</p>
 									</div>
 								</div>
 
@@ -118,63 +116,75 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-        $(function() {
-        	//得到今天注册的帖子
-        	$.query("../session/getTopicRegisterByToday.htm", function(data) {
-        		$("#newTopic_tbody").empty();
-        		$("#topicnum").text(data.length);
-    			$.each(data, function(i, topic) {
-    				console.log(topic);
-    				$("#newTopic_tbody").append(getNewTopic(topic));
-    			});
-    		});
-        	
-        	function getNewTopic(topic){
-        		var text =  '<tr>'
-								+'<td>'
-									+'<p><i class="icon-comment"></i>'+topic.tid+'</p>'
-								+'</td>'
-								+'<td>'
-									+'<p>题目: '+topic.ttopic+'</p>'
-								+'</td>'
-								+'<td>'
-									+'<p>内容: '+topic.tcontents+'</p>'
-								+'</td>'
-								+'<td>'
-									+'<p>所属版块: '+topic.tsid+'</p>'
-								+'</td>'
-								+'<td>'
-									+'<p>发表人:'+topic.tuid+'</p>'
-								+'</td>'
-							+'</tr>';
-					return text;
-        	}
-        	
-        	//得到今天注册的用户
-        	$.query("../content/getUserRegisterByToday.htm", function(data) {
-        		$("#newUser_tbody").empty();
-        		$("#usernum").text(data.length);
-    			$.each(data, function(i, user) {
-    				$("#newUser_tbody").append(getNewUser(user));
-    			});
-    		});
-        	
-        	function getNewUser(user){
-        		var text =  '<tr>'
-        						+'<td>'
-        							+'<p><i class="icon-user"></i>'+user.uname+'</p>'
-        						+'</td>'
-        						+'<td>'
-        							+'<p>邮箱: '+user.uemail+'</p>'
-        						+'</td>'
-        						+'<td>'
-        							+'<p>注册时间: '+user.uregdate+'</p>'
-        						+'</td>'
-        						+'<td>'
-    								+'<p>用户密码:'+user.upassword+'</p>'
-    							+'</td>'
-        					+'</tr>';
-        		return text;
-        	}
-        });
-    </script>
+		$(function() {
+			
+			//得到总用户数
+			$.query("../content/queryUserCount.htm", function(data) {
+				$("#usercount").text(data);
+			});
+			
+			//得到总版块数
+			$.query("../session/querySessionCount.htm", function(data) {
+				$("#sessioncount").text(data);
+			});
+			
+			//得到总帖子数
+			$.query("../session/queryTopicCount.htm", function(data) {
+				$("#topiccount").text(data);
+			});
+			
+			//得到总回复数
+			$.query("../session/queryReplyCount.htm", function(data) {
+				$("#replycount").text(data);
+			});
+			
+			//得到未读系统消息总数
+			$.query("../content/querySystemCount.htm", function(data) {
+				$("#systemcount").text(data);
+			});
+			
+			//得到未读反馈消息消息总数
+			$.query("../content/queryFeedbackCount.htm", function(data) {
+				$("#feedbackcount").text(data);
+			});
+			
+			//得到今天注册的帖子
+			$.query("../session/getTopicRegisterByToday.htm", function(data) {
+				$("#newTopic_tbody").empty();
+				$("#topicnum").text(data.length);
+				$.each(data, function(i, topic) {
+					console.log(topic);
+					$("#newTopic_tbody").append(getNewTopic(topic));
+				});
+			});
+
+			function getNewTopic(topic) {
+				var text = '<tr>' + '<td>' + '<p><i class="icon-comment"></i>'
+						+ topic.tid + '</p>' + '</td>' + '<td>' + '<p>题目: '
+						+ topic.ttopic + '</p>' + '</td>' + '<td>' + '<p>内容: '
+						+ topic.tcontents + '</p>' + '</td>' + '<td>'
+						+ '<p>所属版块: ' + topic.tsid + '</p>' + '</td>' + '<td>'
+						+ '<p>发表人:' + topic.tuid + '</p>' + '</td>' + '</tr>';
+				return text;
+			}
+
+			//得到今天注册的用户
+			$.query("../content/getUserRegisterByToday.htm", function(data) {
+				$("#newUser_tbody").empty();
+				$("#usernum").text(data.length);
+				$.each(data, function(i, user) {
+					$("#newUser_tbody").append(getNewUser(user));
+				});
+			});
+
+			function getNewUser(user) {
+				var text = '<tr>' + '<td>' + '<p><i class="icon-user"></i>'
+						+ user.uname + '</p>' + '</td>' + '<td>' + '<p>邮箱: '
+						+ user.uemail + '</p>' + '</td>' + '<td>' + '<p>注册时间: '
+						+ user.uregdate + '</p>' + '</td>' + '<td>'
+						+ '<p>用户密码:' + user.upassword + '</p>' + '</td>'
+						+ '</tr>';
+				return text;
+			}
+		});
+	</script>

@@ -29,6 +29,13 @@ public interface ReplyService {
 	 * @return
 	 */
 	boolean deleteReply(List<Integer> rids);
+
+
+	/**
+	 * 查询总回帖数
+	 * @return
+	 */
+	int queryReplyCount();
 	
 
 	

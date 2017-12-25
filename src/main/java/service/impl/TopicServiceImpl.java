@@ -52,6 +52,10 @@ public class TopicServiceImpl implements TopicService {
 		String ttime = df.format(new Date());
 		return topicDao.queryTopicsRegisterByToday(ttime);
 	}
+	@Override
+	public int queryTopicCount() {
+		return topicDao.queryTopicCount();
+	}
 
 	
 	

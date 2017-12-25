@@ -41,9 +41,14 @@ public class testUserService extends BaseJUnit4Test{
 	}
 
 	@Test 
-	public void queryUsersRegisterByToday(){
+	public void testQueryUsersRegisterByToday(){
 		System.out.println(service.queryUsersRegisterByToday());
 		System.out.println(service.queryUsersRegisterByToday().size());
+	}
+	
+	@Test
+	public void testQueryUserCount(){
+		System.out.println(service.queryUserCount());
 	}
 
 }

@@ -60,6 +60,33 @@ public class AdminContentController {
 	}
 	
 	/**
+	 * 获得总用户数
+	 * @return
+	 */
+	@RequestMapping(value="/queryUserCount",method=RequestMethod.GET)
+	public @ResponseBody int queryUserCount(){
+		return  userService.queryUserCount();
+	}
+	
+	/**
+	 * 获得未读系统消息总数
+	 * @return
+	 */
+	@RequestMapping(value="/querySystemCount",method=RequestMethod.GET)
+	public @ResponseBody int querySystemCount(){
+		return  privateLetterService.querySystemCount();
+	}
+	
+	/**
+	 * 获得未读反馈消息总数
+	 * @return
+	 */
+	@RequestMapping(value="/queryFeedbackCount",method=RequestMethod.GET)
+	public @ResponseBody int queryFeedbackCount(){
+		return  privateLetterService.queryFeedbackCount();
+	}
+	
+	/**
 	 * 更新用户状态
 	 * @param user
 	 * @return

@@ -56,8 +56,21 @@ public interface TopicDao {
 	@Select("select * from topic where tuid = #{_parameter}")
 	List<Topic> queryTopicByMaster(int userid);
 
+	/**
+	 * 查询今天注册的topic
+	 * @param ttime
+	 * @return
+	 */
 	@Select("select * from topic where ttime >=#{_parameter}")
 	List<Topic> queryTopicsRegisterByToday(String ttime);
+
+
+	/**
+	 * 查询总帖子数
+	 * @return
+	 */
+	@Select("select count(*) from topic ")
+	int queryTopicCount();
 
 
 

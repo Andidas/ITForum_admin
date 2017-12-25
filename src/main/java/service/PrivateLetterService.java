@@ -21,18 +21,8 @@ public interface PrivateLetterService {
 	 * @return
 	 */
 	List<PrivateLetter> queryAllFeedback();
-	/**
-	 * 标记所有私信为已读
-	 * @param uid
-	 * @return
-	 */
-	boolean updateAllReaded(String uid);
-	/**
-	 * 私信状态设置为已读
-	 * @param 
-	 * @return
-	 */
-	boolean evenReaded(String user_id,String friend_id);
+
+	
 	/**
 	 * 分页查询我的私信列表详情
 	 * @param param {
@@ -51,17 +41,8 @@ public interface PrivateLetterService {
 	 */
 //	PageMode<Map<String, Object>> queryMyPrivateLetterList(PageParam pageParam);
 	
-	/**
-	 * 查询所有
-	 * @return
-	 */
-	List<PrivateLetter> findAll();
-	/**
-	 * 批量删除
-	 * @param ids
-	 * @return
-	 */
-	boolean batchDelete(String ids);
+	
+	
 	/**
 	 * 批量插入
 	 * @param puid 发送者
@@ -70,13 +51,7 @@ public interface PrivateLetterService {
 	 * @return 成功返回true
 	 */
 	boolean batchAdd(String puid, String ptouid, int type, String pcontent);
-	/**
-	 * 批量删除friend的私信
-	 * @param uid
-	 * @param fid
-	 * @return
-	 */
-	boolean deleteFriendsLetter(String uid, String fid);
+
 
 	/**
 	 * 私信状态设置为已读
@@ -91,6 +66,17 @@ public interface PrivateLetterService {
 	 * @return
 	 */
 	boolean sendSystemInfoToAllUser(String content);
+
+	/**
+	 * 查询所有未读系统消息总数
+	 * @return
+	 */
+	int querySystemCount();
+	/**
+	 * 查询所有未读反馈消息总数
+	 * @return
+	 */
+	int queryFeedbackCount();
 
 
 }

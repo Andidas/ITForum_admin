@@ -8,6 +8,10 @@ import entity.Topic;
  * @author lwy
  * topic service 
  */
+/**
+ * @author Administrator
+ *
+ */
 public interface TopicService {
 	
 	/**
@@ -51,5 +55,12 @@ public interface TopicService {
 	 * @return
 	 */
 	List<Topic> queryTopicsRegisterByToday();
+
+
+	/**
+	 * 查询总帖子数
+	 * @return
+	 */
+	int queryTopicCount();
 	
 }

@@ -38,30 +38,6 @@ public class PrivateLetterServiceImpl implements PrivateLetterService {
 	}
 
 	@Override
-	public boolean updateAllReaded(String uid) {
-		// TODO 自动生成的方法存根
-		return false;
-	}
-
-	@Override
-	public boolean evenReaded(String user_id, String friend_id) {
-		// TODO 自动生成的方法存根
-		return false;
-	}
-
-	@Override
-	public List<PrivateLetter> findAll() {
-		// TODO 自动生成的方法存根
-		return null;
-	}
-
-	@Override
-	public boolean batchDelete(String ids) {
-		// TODO 自动生成的方法存根
-		return false;
-	}
-
-	@Override
 	public boolean batchAdd(String puid, String ptouid, int type,
 			String pcontent) {
 		if(puid.equals(ptouid))return false;
@@ -94,11 +70,7 @@ public class PrivateLetterServiceImpl implements PrivateLetterService {
 		return privateLetterDao.batchAdd(letters)>0;
 	}
 
-	@Override
-	public boolean deleteFriendsLetter(String uid, String fid) {
-		// TODO 自动生成的方法存根
-		return false;
-	}
+	
 
 	@Override
 	public List<PrivateLetter> queryAllSystemMessage() {
@@ -111,6 +83,14 @@ public class PrivateLetterServiceImpl implements PrivateLetterService {
 	@Override
 	public boolean markReaded(List<Integer> pids) {
 		return privateLetterDao.markReaded(pids);
+	}
+	@Override
+	public int querySystemCount() {
+		return privateLetterDao.querySystemCount();
+	}
+	@Override
+	public int queryFeedbackCount() {
+		return privateLetterDao.queryFeedbackCount();
 	}
 	
 	

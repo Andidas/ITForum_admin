@@ -70,4 +70,11 @@ public interface SessionDao {
 	 */
 	@Select("select * from `session` where sprofile like #{_parameter}")
 	List<Session> querySessionByProfile(String sprofile);
+
+	/**
+	 * 查询总版块数
+	 * @return
+	 */
+	@Select("select count(*) from `session`")
+	int querySessionCount();
 }

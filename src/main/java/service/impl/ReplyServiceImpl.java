@@ -33,6 +33,10 @@ public class ReplyServiceImpl implements ReplyService {
 	public boolean deleteReply(List<Integer> rids) {
 		return replyDao.deleteReply(rids)>0;
 	}
+	@Override
+	public int queryReplyCount() {
+		return replyDao.queryReplyCount();
+	}
 	
 	
 
